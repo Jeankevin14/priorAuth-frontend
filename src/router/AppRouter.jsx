@@ -8,7 +8,7 @@ import AuthProtectedRoute from '../guards/ProtectedRoute';
 
 const roleHome = '/dashboard';
 const allowedRoutes = {
-  doctor: ['/dashboard', '/new-authorization', '/new', '/patients', '/patients/:id', '/doctor/requests', '/doctor/requests/automated', '/doctor/requests/need-information', '/doctor/documents', '/doctor/notifications'],
+  doctor: ['/dashboard', '/new-authorization', '/new', '/patients', '/patients/:id', '/doctor/requests', '/doctor/requests/automated', '/doctor/requests/need-information', '/doctor/documents', '/doctor/notifications', '/authorizations/:id', '/request/:id'],
   nurse: ['/dashboard', '/nurse/review', '/patients', '/patients/:id', '/authorizations/:id', '/request/:id'],
   insurance: ['/dashboard', '/queue', '/patients', '/patients/:id', '/authorizations/:id', '/request/:id', '/policies', '/analytics', '/audit'],
   user: ['/dashboard', '/profile', '/my-policy', '/diagnosis', '/my-request', '/decision', '/documents', '/timeline', '/authorizations/:id'],
