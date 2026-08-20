@@ -13,7 +13,7 @@ const roles = [
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('reviewer');
+  const [role, setRole] = useState('doctor');
   const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
