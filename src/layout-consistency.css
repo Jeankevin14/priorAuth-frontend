@@ -1,0 +1,240 @@
+/* Shared alignment and spacing rules using the existing app scale. */
+.card:not(.stat) {
+  padding: 21px;
+}
+
+.page > .card + .card,
+.page > .simple + .card {
+  margin-top: 15px;
+}
+
+.card > .section-title {
+  gap: 11px;
+  margin-bottom: 16px;
+}
+
+.policy-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 15px 0;
+}
+
+.policy-meta span {
+  min-width: 0;
+  gap: 5px;
+}
+
+.policy-meta b {
+  line-height: 1.2;
+}
+
+.fields {
+  align-items: start;
+}
+
+.field {
+  min-width: 0;
+  gap: 6px;
+}
+
+.criteria {
+  display: grid;
+  grid-template-columns: 7px minmax(0, 1fr);
+  align-items: start;
+  column-gap: 8px;
+  row-gap: 5px;
+}
+
+.criteria > small,
+.criteria > .badge {
+  grid-column: 2;
+  margin-left: 0;
+}
+
+.form-title {
+  align-items: start;
+  gap: 16px;
+}
+
+.request-table {
+  min-width: 0;
+}
+
+.request-table .thead,
+.request-table .trow {
+  column-gap: 11px;
+}
+
+.request-table .thead > span,
+.request-table .trow > strong,
+.request-table .trow > span,
+.request-table .trow > small {
+  min-width: 0;
+  align-self: center;
+}
+
+.request-table .trow > .badge {
+  justify-self: start;
+}
+
+.request-table .trow > span,
+.request-table .trow > small,
+.request-table .trow > strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.request-table .trow > span {
+  white-space: nowrap;
+}
+
+.clinical-review-table .trow > span {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.section-title h3 {
+  line-height: 1.25;
+}
+
+.nav-item {
+  align-items: center;
+}
+
+.login-panel-top > div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.login-panel-top .eyebrow {
+  margin-bottom: 0;
+}
+
+.login-panel-top h2 {
+  margin-top: 0;
+}
+
+.page-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.page-heading > div,
+.stat,
+.stat > div {
+  min-width: 0;
+}
+
+.attention-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 11px;
+  align-items: center;
+}
+
+.attention-row > div:first-child {
+  min-width: 0;
+}
+
+.attention-row .badge {
+  margin-left: 0;
+}
+
+.reviewer-activity-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 560px);
+  margin-inline: auto;
+}
+
+.reviewer-activity-list .attention-row {
+  width: 100%;
+}
+
+.nurse-stat-grid .stat {
+  flex: 0 1 calc((100% - 45px) / 4);
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.nurse-stat-grid .stat > div {
+  text-align: center;
+}
+
+.nurse-stat-grid {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 15px;
+}
+
+@media (max-width: 1050px) {
+  .stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .nurse-stat-grid .stat {
+    flex-basis: calc((100% - 15px) / 2);
+  }
+}
+
+@media (max-width: 720px) {
+  .page-heading {
+    flex-direction: column;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nurse-stat-grid {
+    flex-direction: column;
+  }
+
+  .nurse-stat-grid .stat {
+    flex-basis: auto;
+  }
+}
+
+.doctor-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 16px;
+  align-items: center;
+}
+
+.doctor-heading .hero-model {
+  height: 150px;
+  min-width: 0;
+}
+
+.doctor-heading > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.doctor-heading > div:first-child h1 {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 720px) {
+  .doctor-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .doctor-heading .hero-model {
+    height: 130px;
+    max-width: 190px;
+    justify-self: end;
+  }
+}
