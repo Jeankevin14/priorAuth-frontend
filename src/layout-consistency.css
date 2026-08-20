@@ -8,6 +8,15 @@
   margin-top: 15px;
 }
 
+.patient-section-label {
+  margin-top: 15px;
+  margin-bottom: 16px;
+}
+
+.auth-history-card {
+  margin-top: 15px;
+}
+
 .card > .section-title {
   gap: 11px;
   margin-bottom: 16px;

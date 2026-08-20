@@ -8,7 +8,7 @@ import AuthProtectedRoute from '../guards/ProtectedRoute';
 
 const roleHome = '/dashboard';
 const allowedRoutes = {
-  doctor: ['/dashboard', '/new-authorization', '/new', '/patients', '/patients/:id', '/doctor/requests', '/doctor/requests/automated', '/doctor/requests/need-information', '/doctor/documents', '/doctor/notifications', '/authorizations/:id', '/request/:id'],
+  doctor: ['/dashboard', '/new-authorization', '/new', '/doctor/patients', '/doctor/patients/:patientId', '/doctor/requests', '/doctor/requests/approved', '/doctor/requests/need-information', '/doctor/documents', '/doctor/notifications', '/authorizations/:id', '/request/:id'],
   nurse: ['/dashboard', '/nurse/review', '/patients', '/patients/:id', '/authorizations/:id', '/request/:id'],
   insurance: ['/dashboard', '/queue', '/patients', '/patients/:id', '/authorizations/:id', '/request/:id', '/policies', '/analytics', '/audit'],
   user: ['/dashboard', '/profile', '/my-policy', '/diagnosis', '/my-request', '/decision', '/documents', '/timeline', '/authorizations/:id'],
@@ -43,8 +43,10 @@ export default function AppRouter({ pages }) {
     {protectedPage('/new', pages.newAuthorization)}
     {protectedPage('/patients', pages.patients)}
     {protectedPage('/patients/:id', pages.patientDetail)}
+    {protectedPage('/doctor/patients', pages.doctorPatients)}
+    {protectedPage('/doctor/patients/:patientId', pages.doctorPatientDetail)}
     {protectedPage('/doctor/requests', pages.doctorRequests)}
-    {protectedPage('/doctor/requests/automated', pages.doctorRequests)}
+    {protectedPage('/doctor/requests/approved', pages.doctorRequests)}
     {protectedPage('/doctor/requests/need-information', pages.doctorRequests)}
     {protectedPage('/nurse/review', pages.nurseReview || <NurseReview/>)}
     {protectedPage('/queue', pages.queue)}
