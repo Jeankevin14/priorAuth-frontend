@@ -6,9 +6,9 @@ import { useAuth } from '../../hooks/useAuth';
 import { requests } from '../../data/requests';
 import { ReadonlyDashboard as ReadonlyDashboardContent } from '../../pages/ReadonlyViews';
 import { dashboardService } from '../../services/dashboardService';
-import PolicyDocument3D from '../policy/PolicyDocument3D';
 
 const HeroModel = lazy(() => import('./HeroModel'));
+const PolicyDocument3D = lazy(() => import('../policy/PolicyDocument3D'));
 
 function DoctorDashboard({ user }) {
   const dashboard = dashboardService.getDoctorDashboard(user.id);
@@ -16,7 +16,7 @@ function DoctorDashboard({ user }) {
 }
 
 function ReviewerDashboard({ user }) {
-  return <AppLayout><div className="page dashboard"><div className="page-heading"><div><h1>Welcome, {user.name}</h1></div><a className="button primary" href="/queue">Open queue <ChevronRight size={16}/></a></div><div className="stat-grid"><div className="card stat"><div><p>Requests reviewed</p><h2>128</h2><small className="blue">+12.4%</small></div><FileText/></div><div className="card stat"><div><p>Approved</p><h2>76</h2><small className="green">59.4% rate</small></div><Check/></div><div className="card stat"><div><p>Pending review</p><h2>31</h2><small className="amber">6 urgent</small></div><Clock3/></div></div><Card className="attention"><div className="section-title"><div><p className="eyebrow">POLICY INTELLIGENCE</p><h3>Policy Intelligence</h3></div><Badge type="blue">View only</Badge></div><PolicyDocument3D/></Card><Card className="attention reviewer-activity-card"><div className="section-title"><div><p className="eyebrow">RECENT DECISIONS</p><h3>Authorization activity</h3></div><Badge type="blue">Today</Badge></div><div className="reviewer-activity-list">{requests.map(request => <button className="attention-row" type="button" key={request.id} onClick={() => location.href=`/request/${request.id}`}><div><strong>{request.id} · {request.patient}</strong><small>{request.service}</small></div><Badge type={request.tone}>{request.status}</Badge><ChevronRight size={17}/></button>)}</div></Card></div></AppLayout>;
+  return <AppLayout><div className="page dashboard"><div className="page-heading"><div><h1>Welcome, {user.name}</h1></div><a className="button primary" href="/queue">Open queue <ChevronRight size={16}/></a></div><div className="stat-grid"><div className="card stat"><div><p>Requests reviewed</p><h2>128</h2><small className="blue">+12.4%</small></div><FileText/></div><div className="card stat"><div><p>Approved</p><h2>76</h2><small className="green">59.4% rate</small></div><Check/></div><div className="card stat"><div><p>Pending review</p><h2>31</h2><small className="amber">6 urgent</small></div><Clock3/></div></div><Card className="attention"><div className="section-title"><div><p className="eyebrow">POLICY INTELLIGENCE</p><h3>Policy Intelligence</h3></div><Badge type="blue">View only</Badge></div><Suspense fallback={<div style={{minHeight:240}}/>}><PolicyDocument3D/></Suspense></Card><Card className="attention reviewer-activity-card"><div className="section-title"><div><p className="eyebrow">RECENT DECISIONS</p><h3>Authorization activity</h3></div><Badge type="blue">Today</Badge></div><div className="reviewer-activity-list">{requests.map(request => <button className="attention-row" type="button" key={request.id} onClick={() => location.href=`/request/${request.id}`}><div><strong>{request.id} · {request.patient}</strong><small>{request.service}</small></div><Badge type={request.tone}>{request.status}</Badge><ChevronRight size={17}/></button>)}</div></Card></div></AppLayout>;
 }
 
 function NurseDashboard({ user }) {
