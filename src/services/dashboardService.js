@@ -15,7 +15,12 @@ export const dashboardService = {
     return { requests: requests.filter(request => request.prediction === 'Nurse review' || request.status === 'Evidence needed') };
   },
   getInsuranceDashboard() {
-    return { requests };
+    return {
+      requests,
+      automatedApprovals: requests.filter(request => request.approvalType === 'automated'),
+      manualApprovals: requests.filter(request => request.approvalType === 'manual'),
+      pendingCases: requests.filter(request => request.status !== 'Approved')
+    };
   },
   getUserDashboard(userId) {
     return { requests: requests.filter(request => request.ownerId === userId) };

@@ -30,6 +30,11 @@ function toPatientSummary(patientRequests) {
   };
 }
 
+function buildPatientDetail(patientRequests) {
+  if (!patientRequests.length) return null;
+  return { ...toPatientSummary(patientRequests), requests: patientRequests, latest: patientRequests.at(-1) };
+}
+
 export const patientService = {
   getPatients(ownerId) {
     const ownRequests = requests.filter(request => request.ownerId === ownerId);
@@ -37,8 +42,20 @@ export const patientService = {
   },
   getPatientById(ownerId, patientId) {
     const ownRequests = requests.filter(request => request.ownerId === ownerId);
-    const patientRequests = ownRequests.filter(request => (request.patientId || request.id) === patientId);
-    if (!patientRequests.length) return null;
-    return { ...toPatientSummary(patientRequests), requests: patientRequests, latest: patientRequests.at(-1) };
+    return buildPatientDetail(ownRequests.filter(request => (request.patientId || request.id) === patientId));
+  },
+  getAllPatients() {
+    return [...groupByPatient(requests).values()].map(toPatientSummary);
+  },
+  getPatientByIdAnyOwner(patientId) {
+    return buildPatientDetail(requests.filter(request => (request.patientId || request.id) === patientId));
+  },
+  // For roles scoped to an arbitrary pre-filtered request list (e.g. nurse: only
+  // requests currently needing clinical review) rather than by ownerId or "all".
+  getPatientsFromList(requestList) {
+    return [...groupByPatient(requestList).values()].map(toPatientSummary);
+  },
+  getPatientByIdFromList(requestList, patientId) {
+    return buildPatientDetail(requestList.filter(request => (request.patientId || request.id) === patientId));
   }
 };

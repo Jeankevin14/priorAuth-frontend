@@ -8,6 +8,7 @@ import DoctorDocuments from './features/doctor/pages/DoctorDocuments';
 import DoctorPatientDetail from './features/doctor/pages/DoctorPatientDetail';
 import DoctorPatients from './features/doctor/pages/DoctorPatients';
 import ReviewerAuthorization from './features/insurance/pages/ReviewerAuthorization';
+import ReviewerRequests from './features/insurance/pages/ReviewerRequests';
 import ReviewerPatientDetail from './features/insurance/pages/ReviewerPatientDetail';
 import ReviewerPatients from './features/insurance/pages/ReviewerPatients';
 import NursePatients from './features/nurse/pages/NursePatients';
@@ -18,13 +19,16 @@ import NewAuthorization from './pages/NewAuthorization';
 import Queue from './pages/Queue';
 import SimplePage from './pages/SimplePage';
 import Analytics from './pages/Analytics';
+import AuditTrail from './pages/AuditTrail';
 import './styles.css';
 import './access.css';
 import './sidebar.css';
 import './login.css';
+import './landing.css';
 import './readonly.css';
 import './layout-consistency.css';
+import './audit-trail.css';
 
 function RoleScopedPage({ readonly, standard, doctor, insurance, nurse }){const { role } = useAuth();const insuranceRole = role === 'insurance' || role === 'reviewer';return role === 'user' || role === 'readonly' ? readonly : role === 'doctor' && doctor ? doctor : insuranceRole && insurance ? insurance : role === 'nurse' && nurse ? nurse : standard;}
-function Root(){return <AppRouter pages={{dashboard:<RoleScopedPage readonly={<ReadonlyProfilePage/>} standard={<RoleDashboard/>}/>,profile:<ReadonlyProfilePage/>,myPolicy:<ReadonlyPolicyCategoryPage/>,diagnosis:<ReadonlyDiagnosisPage/>,myRequest:<ReadonlyRequestPage/>,decision:<ReadonlyDecisionPage/>,documents:<ReadonlyDocumentsPage/>,doctorDocuments:<DoctorDocuments/>,timeline:<ReadonlyTimelinePage/>,newAuthorization:<NewAuthorization/>,patients:<RoleScopedPage nurse={<NursePatients/>} insurance={<ReviewerPatients/>} standard={<SimplePage title="Patient profiles" subtitle="Your patients and authorization status."/>}/>,patientDetail:<RoleScopedPage nurse={<NursePatientDetail/>} insurance={<ReviewerPatientDetail/>} standard={<SimplePage title="Patient profile" subtitle="Patient authorization details."/>}/>,doctorPatients:<DoctorPatients/>,doctorPatientDetail:<DoctorPatientDetail/>,doctorRequests:<DoctorRequests/>,notifications:<SimplePage title="Notifications"/>,queue:<Queue/>,authorization:<RoleScopedPage readonly={<ReadonlyAuthorizationPage/>} insurance={<ReviewerAuthorization/>} standard={<ResultPage/>}/>,policies:<SimplePage title="Policy explorer" subtitle="Search policies and surface evidence for a clear review experience."/>,analytics:<Analytics/>,audit:<SimplePage title="Audit trail" subtitle="A transparent event record for every authorization."/>}}/>}
+function Root(){return <AppRouter pages={{dashboard:<RoleScopedPage readonly={<ReadonlyProfilePage/>} standard={<RoleDashboard/>}/>,profile:<ReadonlyProfilePage/>,myPolicy:<ReadonlyPolicyCategoryPage/>,diagnosis:<ReadonlyDiagnosisPage/>,myRequest:<ReadonlyRequestPage/>,decision:<ReadonlyDecisionPage/>,documents:<ReadonlyDocumentsPage/>,doctorDocuments:<DoctorDocuments/>,timeline:<ReadonlyTimelinePage/>,newAuthorization:<NewAuthorization/>,patients:<RoleScopedPage nurse={<NursePatients/>} insurance={<ReviewerPatients/>} standard={<SimplePage title="Patient profiles" subtitle="Your patients and authorization status."/>}/>,patientDetail:<RoleScopedPage nurse={<NursePatientDetail/>} insurance={<ReviewerPatientDetail/>} standard={<SimplePage title="Patient profile" subtitle="Patient authorization details."/>}/>,doctorPatients:<DoctorPatients/>,doctorPatientDetail:<DoctorPatientDetail/>,doctorRequests:<DoctorRequests/>,notifications:<SimplePage title="Notifications"/>,queue:<Queue/>,reviewerRequests:<ReviewerRequests/>,authorization:<RoleScopedPage readonly={<ReadonlyAuthorizationPage/>} insurance={<ReviewerAuthorization/>} standard={<ResultPage/>}/>,policies:<SimplePage title="Policy explorer" subtitle="Search policies and surface evidence for a clear review experience."/>,analytics:<Analytics/>,audit:<AuditTrail/>}}/>}
 createRoot(document.getElementById('root')).render(<AuthProvider><RoleProvider><Root/></RoleProvider></AuthProvider>);

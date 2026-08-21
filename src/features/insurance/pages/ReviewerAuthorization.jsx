@@ -1,12 +1,20 @@
+import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { ChevronLeft, FileText } from 'lucide-react';
 import AppLayout from '../../../components/layout/AppLayout';
 import { Badge, Card } from '../../../components/ui';
 import { requests } from '../../../data/requests';
+import { useSoundEffects } from '../../../hooks/useSoundEffects';
+import { isHighPriorityRequest } from '../../../services/soundService';
 
 export default function ReviewerAuthorization() {
   const { id } = useParams();
   const request = requests.find(item => item.id === id);
+  const { playHeartbeat } = useSoundEffects();
+
+  useEffect(() => {
+    if (request) playHeartbeat(isHighPriorityRequest(request));
+  }, [request?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!request) return <Navigate to="/queue" replace/>;
 

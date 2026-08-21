@@ -3,6 +3,21 @@
   padding: 21px;
 }
 
+/* Rows rendered as <button> (for keyboard/click semantics) must not show the
+   browser's default button chrome — Safari in particular fills unstyled
+   buttons with a visible grey background, making every row look "selected". */
+button.trow,
+button.attention-row {
+  background: transparent;
+  border: 0;
+  font: inherit;
+  text-align: left;
+}
+
+button.trow {
+  border-top: 1px solid #edf1f2;
+}
+
 .page > .card + .card,
 .page > .simple + .card {
   margin-top: 15px;

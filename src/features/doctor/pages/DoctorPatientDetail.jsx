@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Check, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 import AppLayout from '../../../components/layout/AppLayout';
@@ -6,6 +6,8 @@ import { Badge, Card } from '../../../components/ui';
 import { useAuth } from '../../../hooks/useAuth';
 import { patientService } from '../../../services/patientService';
 import AuthorizationDetail from '../../../components/authorization/AuthorizationDetail';
+import { useSoundEffects } from '../../../hooks/useSoundEffects';
+import { isHighPriorityRequest } from '../../../services/soundService';
 
 const historyColumns = '.65fr .9fr .85fr 1.55fr .8fr .5fr .75fr .75fr .75fr .4fr';
 const defaultTimeline = ['Submitted', 'Under review', 'Decision'];
@@ -22,6 +24,11 @@ export default function DoctorPatientDetail() {
   const { patientId } = useParams();
   const navigate = useNavigate();
   const patient = patientService.getPatientById(user.id, patientId);
+  const { playHeartbeat } = useSoundEffects();
+
+  useEffect(() => {
+    if (patient?.latest) playHeartbeat(isHighPriorityRequest(patient.latest));
+  }, [patient?.latest?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!patient) return <Navigate to="/doctor/patients" replace/>;
 

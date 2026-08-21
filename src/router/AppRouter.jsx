@@ -10,9 +10,9 @@ const roleHome = '/dashboard';
 const allowedRoutes = {
   doctor: ['/dashboard', '/new-authorization', '/new', '/doctor/patients', '/doctor/patients/:patientId', '/doctor/requests', '/doctor/requests/approved', '/doctor/requests/need-information', '/doctor/documents', '/doctor/notifications', '/authorizations/:id', '/request/:id'],
   nurse: ['/dashboard', '/nurse/review', '/patients', '/patients/:id', '/authorizations/:id', '/request/:id'],
-  insurance: ['/dashboard', '/queue', '/patients', '/patients/:id', '/authorizations/:id', '/request/:id', '/policies', '/analytics', '/audit'],
+  insurance: ['/dashboard', '/queue', '/patients', '/patients/:id', '/authorizations/:id', '/request/:id', '/policies', '/analytics', '/audit', '/insurance/requests', '/insurance/requests/automated', '/insurance/requests/manual'],
   user: ['/dashboard', '/profile', '/my-policy', '/diagnosis', '/my-request', '/decision', '/documents', '/timeline', '/authorizations/:id'],
-  reviewer: ['/dashboard', '/queue', '/patients', '/patients/:id', '/authorizations/:id', '/request/:id', '/policies', '/analytics', '/audit'],
+  reviewer: ['/dashboard', '/queue', '/patients', '/patients/:id', '/authorizations/:id', '/request/:id', '/policies', '/analytics', '/audit', '/insurance/requests', '/insurance/requests/automated', '/insurance/requests/manual'],
   readonly: ['/dashboard', '/profile', '/my-policy', '/diagnosis', '/my-request', '/decision', '/documents', '/timeline', '/authorizations/:id']
 };
 
@@ -50,6 +50,9 @@ export default function AppRouter({ pages }) {
     {protectedPage('/doctor/requests/need-information', pages.doctorRequests)}
     {protectedPage('/nurse/review', pages.nurseReview || <NurseReview/>)}
     {protectedPage('/queue', pages.queue)}
+    {protectedPage('/insurance/requests', pages.reviewerRequests)}
+    {protectedPage('/insurance/requests/automated', pages.reviewerRequests)}
+    {protectedPage('/insurance/requests/manual', pages.reviewerRequests)}
     {protectedPage('/authorizations/:id', pages.authorization)}
     {protectedPage('/request/:id', pages.authorization)}
     {protectedPage('/policies', pages.policies)}

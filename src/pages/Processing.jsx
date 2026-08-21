@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Activity, BrainCircuit, Check, CircleHelp, Clock3, FileText, ShieldCheck } from 'lucide-react';
 import AppLayout from '../components/layout/AppLayout';
 import { requests } from '../data/requests';
+import { useSoundEffects } from '../hooks/useSoundEffects';
 import './processing.css';
 
 const DEFAULT_REQUEST_ID = 'PA-10482';
@@ -66,6 +67,8 @@ export default function Processing({ requestId = DEFAULT_REQUEST_ID }) {
   const [elapsedMs, setElapsedMs] = useState(0);
   const target = requests.find(r => r.id === requestId);
   const result = target?.resultDetail;
+  const { playSuccess, playAlert, playReview } = useSoundEffects();
+  const revealSoundPlayed = useRef(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -90,6 +93,14 @@ export default function Processing({ requestId = DEFAULT_REQUEST_ID }) {
   const coreStatus = agentStatus(reasoningAgent, elapsedMs, REASONING_START).status;
   const showResult = revealed && Boolean(result);
   const CoreIcon = showResult ? RevealIcon : BrainCircuit;
+
+  useEffect(() => {
+    if (!showResult || revealSoundPlayed.current) return;
+    revealSoundPlayed.current = true;
+    if (target?.prediction === 'Approve') playSuccess();
+    else if (target?.prediction === 'More information') playAlert();
+    else if (target?.prediction === 'Nurse review') playReview();
+  }, [showResult, target?.prediction, playSuccess, playAlert, playReview]);
 
   return <AppLayout><div className="processing page orbit-page">
     <p className="eyebrow">AUTHORIZATION {target?.id}</p>

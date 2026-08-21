@@ -1,12 +1,21 @@
+import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import AppLayout from '../components/layout/AppLayout';
 import { requests } from '../data/requests';
 import AuthorizationDetail from '../components/authorization/AuthorizationDetail';
+import { useSoundEffects } from '../hooks/useSoundEffects';
+import { isHighPriorityRequest } from '../services/soundService';
 
 export default function ResultPage() {
   const { id } = useParams();
   const request = requests.find(item => item.id === id);
+  const { playHeartbeat } = useSoundEffects();
+
+  useEffect(() => {
+    if (request) playHeartbeat(isHighPriorityRequest(request));
+  }, [request?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (!request || !request.resultDetail) return <Navigate to="/dashboard" replace />;
 
   return <AppLayout><div className="page result">
